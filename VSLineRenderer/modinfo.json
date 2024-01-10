@@ -1,0 +1,13 @@
+{
+    "type": "code",
+    "modid": "vslinerenderer",
+    "name": "VSLineRenderer",
+    "authors": [
+        "korobya"
+    ],
+    "description": "",
+    "version": "1.0.0",
+    "dependencies": {
+        "game": ""
+    }
+}
