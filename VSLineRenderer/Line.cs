@@ -67,17 +67,20 @@ namespace VSLineRenderer
             var cameraPos = _capi.World.Player.Entity.CameraPos;
             var origin = (_points[0] - cameraPos).ToVec3f();
 
-            _modelMat.Set(_capi.Render.CameraMatrixOriginf).Translate(origin.X, origin.Y, origin.Z).ReverseMul(_capi.Render.CurrentProjectionMatrix);
+            _modelMat.Set(_capi.Render.CameraMatrixOriginf).Translate(origin.X, origin.Y, origin.Z);
             var resolution = new Vec2f(_capi.Settings.Int["screenWidth"], _capi.Settings.Int["screenHeight"]);
 
-            shader.UniformMatrix("modelViewProjection", _modelMat.Values);
+            shader.UniformMatrix("modelViewMatrix", _modelMat.Values);
+            shader.UniformMatrix("projectionMatrix", _capi.Render.CurrentProjectionMatrix);
             shader.Uniform("resolution", resolution);
             
             shader.Uniform("width", _width);
             shader.Uniform("color", _color);
 
+            _capi.Render.GlDisableCullFace();
             var segmentCount = _drawMode == EnumLineDrawMode.Lines ? _points.Count / 2 : _points.Count - 1;
             _capi.Render.RenderMeshInstanced(_segmentRef, segmentCount);
+            _capi.Render.GlEnableCullFace();
         }
 
         public void Dispose()

@@ -34,7 +34,7 @@ namespace VSLineRenderer
         {
             _capi = api;
 
-            _capi.Event.RegisterRenderer(this, EnumRenderStage.AfterFinalComposition);
+            _capi.Event.RegisterRenderer(this, EnumRenderStage.Opaque);
             _capi.Event.ReloadShader += OnReloadShader;
 
             _capi.Event.LevelFinalize += OnLevelFinalize;
